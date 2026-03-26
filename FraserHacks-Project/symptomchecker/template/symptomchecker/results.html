@@ -129,10 +129,6 @@
       font-size: 0.95rem;
     }
 
-    ul {
-      padding-left: 20px;
-    }
-
     .meta {
       color: #6b7280;
       margin-top: 8px;
@@ -146,25 +142,25 @@
         <h1>Assessment Results</h1>
         <p class="meta">Based on the symptoms selected by the user.</p>
       </div>
-      <a class="btn" href="/">Check Again</a>
+      <a class="btn" href="{% url 'index' %}">Check Again</a>
     </div>
 
     <div class="card">
       <h2>Selected Symptoms</h2>
       <div class="pill-list">
         {% for symptom in selected_symptoms %}
-          <span class="pill">{{ symptom.replace('_', ' ').title() }}</span>
+          <span class="pill">{{ symptom }}</span>
         {% endfor %}
       </div>
 
       <h2 style="margin-top: 24px;">Overall Triage</h2>
       <div class="triage-box triage-{{ final_triage }}">
-        {{ triage_labels[final_triage] }}
+        {{ final_triage }}
       </div>
 
       {% if red_flag %}
       <div class="warning">
-        <strong>Red Flag Triggered:</strong> {{ red_flag["message"] }}
+        <strong>Red Flag Triggered:</strong> {{ red_flag.message }}
       </div>
       {% endif %}
 
@@ -179,14 +175,16 @@
       {% if results %}
         {% for result in results %}
           <div class="result-card">
-            <h3>{{ result["name"] }}</h3>
-            <p>{{ result["description"] }}</p>
-            <p><strong>Triage:</strong> {{ triage_labels[result["triage"]] }}</p>
-            <p><strong>Match Score:</strong> {{ result["score"] }}</p>
-            <p><strong>Advice:</strong> {{ result["advice"] }}</p>
+            <h3>{{ result.name }}</h3>
+            <p>{{ result.description }}</p>
+            <p><strong>Triage:</strong> {{ result.triage }}</p>
+            <p><strong>Match Score:</strong> {{ result.score }}</p>
+            <p><strong>Advice:</strong> {{ result.advice }}</p>
             <div class="matched">
               <strong>Matched Symptoms:</strong>
-              {{ result["matched_symptoms"] | join(", ") }}
+              {% for symptom in result.matched_symptoms %}
+                {{ symptom }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
             </div>
           </div>
         {% endfor %}

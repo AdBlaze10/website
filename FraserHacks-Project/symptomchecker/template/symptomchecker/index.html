@@ -78,28 +78,6 @@
       transform: scale(1.15);
     }
 
-    .extra-fields {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    select, input[type="number"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: white;
-    }
-
     .disclaimer {
       background: #fff7ed;
       border: 1px solid #fdba74;
@@ -166,11 +144,13 @@
         <h1>SymptoSense</h1>
         <p class="subtitle">Select symptoms to view possible conditions and triage level.</p>
       </div>
-      <a href="/about">About</a>
+      <a href="{% url 'about' %}">About</a>
     </div>
 
     <div class="card">
-      <form action="/results" method="POST">
+      <form action="{% url 'results' %}" method="POST">
+        {% csrf_token %}
+
         <div class="section-title">Select Symptoms</div>
         <div class="symptom-grid">
           <label class="symptom-item"><input type="checkbox" name="symptoms" value="fever"> Fever</label>
@@ -195,32 +175,13 @@
           <label class="symptom-item"><input type="checkbox" name="symptoms" value="blurred_vision"> Blurred Vision</label>
         </div>
 
-        <div class="section-title">Optional Details</div>
-        <div class="extra-fields">
-          <div>
-            <label for="age_group">Age Group</label>
-            <select name="age_group" id="age_group">
-              <option value="">Select age group</option>
-              <option value="child">Child</option>
-              <option value="teen">Teen</option>
-              <option value="adult">Adult</option>
-              <option value="senior">Senior</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="duration_days">How many days have symptoms lasted?</label>
-            <input type="number" name="duration_days" id="duration_days" min="0" placeholder="e.g. 3">
-          </div>
-        </div>
-
         <div class="disclaimer">
           This tool is for educational and hackathon demonstration purposes only. It does not provide medical diagnosis or professional medical advice.
         </div>
 
         <div class="actions">
           <button type="submit">Check Symptoms</button>
-          <a class="secondary-btn" href="/">Clear</a>
+          <a class="secondary-btn" href="{% url 'index' %}">Clear</a>
         </div>
       </form>
     </div>
