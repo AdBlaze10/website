@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SymptoSense | Symptom Checker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2.2rem;
+    }
+
+    p.subtitle {
+      color: #4b5563;
+      margin-bottom: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .topbar a {
+      text-decoration: none;
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    .section-title {
+      margin: 28px 0 14px;
+      font-size: 1.2rem;
+      color: #111827;
+    }
+
+    .symptom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .symptom-item {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .symptom-item input {
+      transform: scale(1.15);
+    }
+
+    .extra-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+    }
+
+    .disclaimer {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #9a3412;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 24px 0;
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    button, .secondary-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+    }
+
+    .secondary-btn {
+      background: #e5e7eb;
+      color: #111827;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      color: #6b7280;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <h1>SymptoSense</h1>
+        <p class="subtitle">Select symptoms to view possible conditions and triage level.</p>
+      </div>
+      <a href="/about">About</a>
+    </div>
+
+    <div class="card">
+      <form action="/results" method="POST">
+        <div class="section-title">Select Symptoms</div>
+        <div class="symptom-grid">
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="fever"> Fever</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="cough"> Cough</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="sore_throat"> Sore Throat</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="runny_nose"> Runny Nose</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="fatigue"> Fatigue</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="headache"> Headache</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="nausea"> Nausea</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="vomiting"> Vomiting</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="diarrhea"> Diarrhea</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="abdominal_pain"> Abdominal Pain</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="chest_pain"> Chest Pain</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="shortness_of_breath"> Shortness of Breath</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="dizziness"> Dizziness</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="rash"> Rash</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="body_aches"> Body Aches</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="chills"> Chills</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="loss_of_taste_smell"> Loss of Taste or Smell</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="sneezing"> Sneezing</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="ear_pain"> Ear Pain</label>
+          <label class="symptom-item"><input type="checkbox" name="symptoms" value="blurred_vision"> Blurred Vision</label>
+        </div>
+
+        <div class="section-title">Optional Details</div>
+        <div class="extra-fields">
+          <div>
+            <label for="age_group">Age Group</label>
+            <select name="age_group" id="age_group">
+              <option value="">Select age group</option>
+              <option value="child">Child</option>
+              <option value="teen">Teen</option>
+              <option value="adult">Adult</option>
+              <option value="senior">Senior</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="duration_days">How many days have symptoms lasted?</label>
+            <input type="number" name="duration_days" id="duration_days" min="0" placeholder="e.g. 3">
+          </div>
+        </div>
+
+        <div class="disclaimer">
+          This tool is for educational and hackathon demonstration purposes only. It does not provide medical diagnosis or professional medical advice.
+        </div>
+
+        <div class="actions">
+          <button type="submit">Check Symptoms</button>
+          <a class="secondary-btn" href="/">Clear</a>
+        </div>
+      </form>
+    </div>
+
+    <footer>
+      SymptoSense • Hackathon demo
+    </footer>
+  </div>
+</body>
+</html>

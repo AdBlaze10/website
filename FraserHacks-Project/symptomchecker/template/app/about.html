@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | SymptoSense</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .warning {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #9a3412;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← Back to Symptom Checker</a>
+
+    <div class="card">
+      <h1>About SymptoSense</h1>
+      <p>
+        SymptoSense is a hackathon demo app that lets users select symptoms and view possible matching
+        conditions along with an overall triage level.
+      </p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Collects symptoms through a form</li>
+        <li>Matches those symptoms against a predefined condition dataset</li>
+        <li>Applies triage rules and red-flag overrides</li>
+        <li>Shows educational next-step advice</li>
+      </ul>
+
+      <h2>What it does not do</h2>
+      <ul>
+        <li>It does not diagnose medical conditions</li>
+        <li>It does not replace a doctor, nurse, or emergency services</li>
+        <li>It is not a clinically validated medical tool</li>
+      </ul>
+
+      <div class="warning">
+        <strong>Disclaimer:</strong> This tool is for educational and hackathon demonstration purposes only.
+        If symptoms are severe, worsening, or involve an emergency, seek care from a licensed healthcare
+        professional immediately.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SymptoSense | Results</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .triage-box {
+      padding: 16px;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 14px;
+    }
+
+    .triage-low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .triage-medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .triage-high {
+      background: #fed7aa;
+      color: #9a3412;
+    }
+
+    .triage-emergency {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .result-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 16px;
+      background: #fafafa;
+    }
+
+    .matched {
+      margin-top: 10px;
+      color: #4b5563;
+    }
+
+    .warning {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #9a3412;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-top: 16px;
+    }
+
+    .disclaimer {
+      background: #f9fafb;
+      color: #4b5563;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .meta {
+      color: #6b7280;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>
+        <h1>Assessment Results</h1>
+        <p class="meta">Based on the symptoms selected by the user.</p>
+      </div>
+      <a class="btn" href="/">Check Again</a>
+    </div>
+
+    <div class="card">
+      <h2>Selected Symptoms</h2>
+      <div class="pill-list">
+        {% for symptom in selected_symptoms %}
+          <span class="pill">{{ symptom.replace('_', ' ').title() }}</span>
+        {% endfor %}
+      </div>
+
+      <h2 style="margin-top: 24px;">Overall Triage</h2>
+      <div class="triage-box triage-{{ final_triage }}">
+        {{ triage_labels[final_triage] }}
+      </div>
+
+      {% if red_flag %}
+      <div class="warning">
+        <strong>Red Flag Triggered:</strong> {{ red_flag["message"] }}
+      </div>
+      {% endif %}
+
+      <div class="disclaimer">
+        This tool is for educational and hackathon demonstration purposes only. It does not provide medical diagnosis, treatment, or professional advice.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Possible Matching Conditions</h2>
+
+      {% if results %}
+        {% for result in results %}
+          <div class="result-card">
+            <h3>{{ result["name"] }}</h3>
+            <p>{{ result["description"] }}</p>
+            <p><strong>Triage:</strong> {{ triage_labels[result["triage"]] }}</p>
+            <p><strong>Match Score:</strong> {{ result["score"] }}</p>
+            <p><strong>Advice:</strong> {{ result["advice"] }}</p>
+            <div class="matched">
+              <strong>Matched Symptoms:</strong>
+              {{ result["matched_symptoms"] | join(", ") }}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No likely conditions were matched from the selected symptoms.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
